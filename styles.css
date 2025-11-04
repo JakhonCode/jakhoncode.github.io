@@ -56,8 +56,7 @@ a {
 }
 
 #profile-photo {
-  width: 100%; /* Adjust width as needed */
-  max-width: 600px; /* Maintain aspect ratio */
+  width: auto; /* Adjust width as needed */
   height: auto;
   position: relative;
   opacity: 0;
@@ -94,3 +93,4 @@ a {
       opacity: 1;
   }
 }
+
