@@ -15,16 +15,23 @@
 </head>
 <body class="pt-16">
     <!-- Header Section -->
-    <img src="https://visitor-badge.laobi.icu/badge?page_id=Jaxongirbek.Jaxongirbek.github.io" alt="Visitors" />
     <header class="bg-gray-100 shadow fixed top-0 w-full z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-4xl font-bold">J.A.</a>
-            <nav class="space-x-4 md:space-x-8">
+            <nav class="space-x-4 md:space-x-8 flex items-center">
                 <a href="#home" class="text-gray-800 hover:text-yellow-500 text-base">About</a>
                 <a href="#activities" class="text-gray-800 hover:text-yellow-500 text-base">Activities</a>
                 <a href="#portfolios" class="text-gray-800 hover:text-yellow-500 text-base">Portfolio</a>
                 <a href="#experience" class="text-gray-800 hover:text-yellow-500 text-base">Experiences</a>
                 <a href="#contact" class="text-gray-800 hover:text-yellow-500 text-base">Contact</a>
+                <span id="visitor-badge" class="inline-flex items-center text-gray-600 bg-white border border-gray-300 rounded-full px-3 py-1 text-sm ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    <span class="ml-2">Visitors:</span>
+                    <span id="visitor-count" class="ml-1 font-medium">--</span>
+                </span>
             </nav>
         </div>
     </header>
@@ -226,6 +233,27 @@
                 });
             }
         });
+    </script>
+    <script>
+        // Lightweight visitor counter using CountAPI
+        (function() {
+            const badge = document.getElementById('visitor-badge');
+            const countEl = document.getElementById('visitor-count');
+            if (!badge || !countEl) return;
+            const ns = (window.location.hostname || 'localhost').replace(/\./g, '_');
+            const key = 'visitors';
+            fetch(`https://api.countapi.xyz/hit/${ns}/${key}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && typeof data.value === 'number') {
+                        countEl.textContent = data.value.toLocaleString();
+                    }
+                })
+                .catch(() => {
+                    // Hide badge quietly if the service is unreachable
+                    badge.style.display = 'none';
+                });
+        })();
     </script>
 </body>
 </html>
